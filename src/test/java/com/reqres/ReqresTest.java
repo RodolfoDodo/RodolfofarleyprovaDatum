@@ -1,10 +1,11 @@
 package com.reqres;
 
+import factory.UsersDataFactory;
 import io.restassured.http.ContentType;
 import org.junit.Test;
+import pojo.Users;
 
 import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 public class ReqresTest {
@@ -13,29 +14,27 @@ public class ReqresTest {
     public void registerSuccessful(){
         baseURI = "https://reqres.in";
 
+        Users usersRegister = UsersDataFactory.registerUsers();
+
         given()
             .contentType(ContentType.JSON)
-            .body("{\n" +
-                    "    \"email\": \"rachel.howell@reqres.in\",\n" +
-                    "    \"password\": \"pistol\"\n" +
-                    "}")
+            .body(usersRegister)
         .when()
             .post("/api/register")
         .then()
             .log()
-                .all();
+            .all();
     }
 
     @Test
     public void creat(){
         baseURI = "https://reqres.in";
 
+        Users usersCreat = UsersDataFactory.creatUsers();
+
         given()
             .contentType(ContentType.JSON)
-            .body("{\n" +
-                        "    \"name\": \"Rodolfo Farley\",\n" +
-                        "    \"job\": \"Analista de Teste\"\n" +
-                        "}")
+            .body(usersCreat)
         .when()
             .post("/api/users")
         .then()
@@ -49,12 +48,11 @@ public class ReqresTest {
     public void update(){
         baseURI = "https://reqres.in";
 
+        Users updateUsers = UsersDataFactory.updateUsers();
+
         given()
             .contentType(ContentType.JSON)
-            .body("{\n" +
-                    "    \"name\": \"Rodolfo Farley\",\n" +
-                    "    \"job\": \"Analista de Teste Automatizados\"\n" +
-                    "}")
+            .body(updateUsers)
         .when()
             .post("/api/users/2")
         .then()
@@ -63,7 +61,6 @@ public class ReqresTest {
                 .assertThat()
                 .statusCode(201)
                 .body("name", equalTo("Rodolfo Farley"))
-                .body("job",  equalToIgnoringCase("analista de teste automatizados"));
+                .body("job",  equalToIgnoringCase("futuro qa na datum no cliente Getnet."));
     }
-
 }
