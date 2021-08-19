@@ -1,19 +1,30 @@
 package com.reqres;
 
+import config.Settings;
 import factory.UsersDataFactory;
 import io.restassured.http.ContentType;
+import org.aeonbits.owner.Config;
+import org.aeonbits.owner.ConfigFactory;
+import org.junit.Before;
 import org.junit.Test;
 import pojo.Users;
+
+import java.io.IOException;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 public class ReqresTest {
 
-    @Test
-    public void registerSuccessful(){
-        baseURI = "https://reqres.in";
+    @Before
+    public void setup(){
+        Settings settings = ConfigFactory.create(Settings.class);
 
+        baseURI = settings.baseURI();
+    }
+
+    @Test
+    public void registerSuccessful() throws IOException {
         Users usersRegister = UsersDataFactory.registerUsers();
 
         given()
@@ -27,9 +38,7 @@ public class ReqresTest {
     }
 
     @Test
-    public void creat(){
-        baseURI = "https://reqres.in";
-
+    public void creat() throws IOException {
         Users usersCreat = UsersDataFactory.creatUsers();
 
         given()
@@ -44,10 +53,11 @@ public class ReqresTest {
 
     //validando o body e o statuscode
     // validando os nomes ignoreCase
+    //usei before
+    //templates de Requisições usando DataBinding
+    //Usando o Owner para segregar as propriedades
     @Test
-    public void update(){
-        baseURI = "https://reqres.in";
-
+    public void update() throws IOException {
         Users updateUsers = UsersDataFactory.updateUsers();
 
         given()
@@ -60,7 +70,7 @@ public class ReqresTest {
             .all()
                 .assertThat()
                 .statusCode(201)
-                .body("name", equalTo("Rodolfo Farley"))
-                .body("job",  equalToIgnoringCase("futuro qa na datum no cliente Getnet."));
+                    .body("name", equalTo("Rodolfo Farley"))
+                    .body("job",  equalToIgnoringCase("futuro qa na datum no cliente Getnet."));
     }
 }
