@@ -51,11 +51,6 @@ public class ReqresTest {
             .all();
     }
 
-    //validando o body e o statuscode
-    // validando os nomes ignoreCase
-    //usei before
-    //templates de Requisições usando DataBinding
-    //Usando o Owner para segregar as propriedades
     @Test
     public void update() throws IOException {
         Users updateUsers = UsersDataFactory.updateUsers();
