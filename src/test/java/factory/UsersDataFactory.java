@@ -16,7 +16,7 @@ public class UsersDataFactory {
 
     public static Users registerUser() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Users users = objectMapper.readValue(new FileInputStream("C:\\Users\\rodol\\IdeaProjects\\RodolfoFarleyProvaDatum\\src\\test\\resources\\requestBody\\postRegister.json"), Users.class);
+        Users users = objectMapper.readValue(new FileInputStream("src/test/resources/requestBody/postRegister.json"), Users.class);
         return users;
     }
 
@@ -27,7 +27,7 @@ public class UsersDataFactory {
 
     public static Users crateUser() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Users users = objectMapper.readValue(new FileInputStream("C:\\Users\\rodol\\IdeaProjects\\RodolfoFarleyProvaDatum\\src\\test\\resources\\requestBody\\postCreate.json"), Users.class);
+        Users users = objectMapper.readValue(new FileInputStream("src/test/resources/requestBody/postCreate.json"), Users.class);
         return users;
     }
 
@@ -39,7 +39,7 @@ public class UsersDataFactory {
 
     public static Users update() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Users users = objectMapper.readValue(new FileInputStream("C:\\Users\\rodol\\IdeaProjects\\RodolfoFarleyProvaDatum\\src\\test\\resources\\requestBody\\putUpdate.json"), Users.class);
+        Users users = objectMapper.readValue(new FileInputStream("src/test/resources/requestBody/putUpdate.json"), Users.class);
         return users;
     }
 
